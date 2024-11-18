@@ -30,14 +30,18 @@ export default () => (
     <Container>
         <Title>$ composerize</Title>
         <Buttons>
-            <Link href="https://travis-ci.org/magicmark/composerize">
-                <img src="https://img.shields.io/travis/magicmark/composerize/master.svg" alt="travis" />
-            </Link>
             <Link href="https://github.com/magicmark/composerize">
                 <img alt="npm" src="https://img.shields.io/npm/v/composerize" />
             </Link>
             <Link href="https://twitter.com/mark_larah?ref_src=twsrc%5Etfw">
                 <img src="https://img.shields.io/twitter/follow/mark_larah" alt="Twitter Follow" />
+            </Link>
+            <Link href="https://github.com/sharevb">
+                <img
+                    src="https://img.shields.io/badge/ShareVB-100000?logo=github&logoColor=white"
+                    alt="ShareVB on GitHub"
+                    style={{ height: '20px' }}
+                />
             </Link>
             <Link href="https://github.com/magicmark/composerize">
                 <img

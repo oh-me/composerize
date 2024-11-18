@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import CBox from './CBox';
 
-const StyledInput = styled.input`
+const StyledInput = styled.textarea`
     ${CBox}
 `;
 
@@ -13,12 +13,13 @@ export default class TextInput extends Component {
     }
 
     render() {
-        const { command } = this.props;
+        const { value, rows } = this.props;
 
         return (
             <StyledInput
-                value={command}
-                onChange={e => {
+                rows={rows ?? 1}
+                value={value}
+                onChange={(e) => {
                     this.handleChange(e);
                 }}
             />

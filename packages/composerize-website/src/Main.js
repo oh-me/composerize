@@ -16,16 +16,54 @@ export default class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            input: defaultCommand,
+            command: defaultCommand,
+            compose: '',
+            version: 'latest',
             output: Composerize(defaultCommand),
+            error: '',
+            erroredLines: [],
         };
-        this.onInputChange = this.onInputChange.bind(this);
+        this.onCommandInputChange = this.onCommandInputChange.bind(this);
+        this.onComposeInputChange = this.onComposeInputChange.bind(this);
+        this.onSelectChange = this.onSelectChange.bind(this);
     }
 
-    onInputChange(value) {
-        this.setState({
-            input: value,
-            output: Composerize(value),
+    onComposeInputChange(value) {
+        this.setState(() => ({
+            compose: value,
+        }));
+        this.updateConversion();
+    }
+
+    onCommandInputChange(value) {
+        this.setState(() => ({
+            command: value,
+        }));
+        this.updateConversion();
+    }
+
+    onSelectChange(value) {
+        this.setState(() => ({
+            version: value.value,
+        }));
+        this.updateConversion();
+    }
+
+    updateConversion() {
+        this.setState((state) => {
+            try {
+                return {
+                    output: Composerize(state.command, state.compose, state.version),
+                    error: '',
+                    erroredLines: [],
+                };
+            } catch (e) {
+                return {
+                    error: e.toString(),
+                    output: '#see error message(s)',
+                    erroredLines: e.lines,
+                };
+            }
         });
     }
 
@@ -33,7 +71,16 @@ export default class Main extends Component {
         return (
             <div>
                 <Header />
-                <Entry command={this.state.input} onInputChange={this.onInputChange} />
+                <Entry
+                    command={this.state.command}
+                    compose={this.state.compose}
+                    version={this.state.version}
+                    error={this.state.error}
+                    erroredLines={this.state.erroredLines}
+                    onSelectChange={this.onSelectChange}
+                    onCommandInputChange={this.onCommandInputChange}
+                    onComposeInputChange={this.onComposeInputChange}
+                />
                 <Output output={this.state.output} />
                 <Footer />
             </div>
